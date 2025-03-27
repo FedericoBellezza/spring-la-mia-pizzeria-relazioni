@@ -87,4 +87,11 @@ public class PizzaController {
         return "redirect:/pizzas";
     }
 
+    @GetMapping("/{id}/special-offers")
+    public String ciao(Model model) {
+        List<Pizza> pizzas = repository.findAll();
+        model.addAttribute("pizzas", pizzas);
+        return "pizzas/index";
+    }
+
 }

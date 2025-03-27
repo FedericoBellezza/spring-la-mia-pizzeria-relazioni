@@ -1,5 +1,7 @@
 package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Entity;
@@ -7,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -36,6 +39,9 @@ public class Pizza {
   @Min(value = 0, message = "Il prezzo deve essere positivo")
   @NotNull(message = "Inserisci un prezzo valido")
   private Integer price;
+
+  @OneToMany(mappedBy = "pizza")
+  private List<SpecialOffer> special_offers;
 
   public Pizza() {
   }

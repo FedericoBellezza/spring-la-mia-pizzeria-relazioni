@@ -1,0 +1,57 @@
+package org.lessons.java.spring_la_mia_pizzeria_crud.model;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
+
+@Entity
+@Table(name = "special_offers")
+public class SpecialOffer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "pizza_id", nullable = false)
+    private Pizza pizza;
+
+    @PastOrPresent(message = "La data non può essere futura")
+    private LocalDate startDate;
+
+    @PastOrPresent(message = "La data non può essere futura")
+    private LocalDate endDate;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Pizza getPizza() {
+        return this.pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+}
