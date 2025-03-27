@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIZZAS</title>
+    <div th:replace="~{ fragments/fragments :: favicon}"></div>
+    <div th:replace="~{ fragments/fragments :: tailwind}"></div>
+  </head>
+  <body>
+    <div th:replace="~{ fragments/fragments :: navbar }"></div>
+      <a
+        class="mx-60 absolute top-35 text-lg bg-red-500 text-white px-3 py-2 font-bold hover:bg-red-600"
+        href="/pizzas"
+        th:text="Indietro"
+      />
+      <a
+        class="right-60 absolute top-35 text-lg bg-blue-500 text-white px-3 py-2 font-bold hover:bg-blue-600"
+        th:href="@{edit/{id}(id = ${pizza.id})}"
+        th:text="Modifica"
+      />
+      <form th:action="@{/pizzas/delete/{id}(id = ${pizza.id})}" method="post">
+        <button
+        class="right-30 absolute top-35 text-lg bg-red-500 text-white px-3 py-2 font-bold cursor-pointer hover:bg-red-600"
+        type="submit"
+        th:text="Elimina"
+        />
+      </form>
+      
+    </div>
+    <div class="flex flex-col items-center gap-10">
+      <h1
+        th:if="${pizza != null}"
+        class="text-6xl text-slate-700 font-bold italic text-center pt-10"
+      >
+        [[${pizza.name}]]
+        <span class="text-2xl">€[[${pizza.price}]].00</span>
+      </h1>
+      <h1
+        th:unless="${pizza != null}"
+        class="text-6xl text-slate-700 font-bold italic text-center py-10"
+      >
+        Pizza non trovata
+      </h1>
+      <p class="text-center text-xl">[[${pizza.description}]]</p>
+      <img
+        class="rounded-2xl w-50/100 h-150 object-cover"
+        th:src="@{${pizza.image}}"
+        alt="immagine pizza"
+      />
+    </div>
+  </body>
+</html>
