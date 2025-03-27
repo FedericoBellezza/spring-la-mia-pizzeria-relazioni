@@ -3,6 +3,9 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -16,12 +19,22 @@ public class SpecialOffer {
     @JoinColumn(name = "pizza_id", nullable = false)
     private Pizza pizza;
 
+    @NotNull(message = "Inserisci una data valida")
     @PastOrPresent(message = "La data non può essere futura")
     private LocalDate startDate;
 
-    @PastOrPresent(message = "La data non può essere futura")
+    @NotNull(message = "Inserisci una data valida")
+    @Future(message = "La data non può essere passata")
     private LocalDate endDate;
 
+    @NotBlank(message = "Inserisci un nome valido")
+    private String name;
+
+    // Constructor
+    public SpecialOffer() {
+    }
+
+    // Getters and Setters
     public Integer getId() {
         return this.id;
     }
@@ -52,6 +65,14 @@ public class SpecialOffer {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }

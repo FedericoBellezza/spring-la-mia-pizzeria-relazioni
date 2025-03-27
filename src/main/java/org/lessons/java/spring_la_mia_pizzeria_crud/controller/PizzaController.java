@@ -2,6 +2,7 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.controller;
 
 import java.util.List;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.lessons.java.spring_la_mia_pizzeria_crud.model.SpecialOffer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,10 +89,13 @@ public class PizzaController {
     }
 
     @GetMapping("/{id}/special-offers")
-    public String ciao(Model model) {
-        List<Pizza> pizzas = repository.findAll();
-        model.addAttribute("pizzas", pizzas);
-        return "pizzas/index";
+    public String special_offer(@PathVariable Integer id, Model model) {
+        SpecialOffer specialOffer = new SpecialOffer();
+        specialOffer.setPizza(repository.findById(id).get());
+        model.addAttribute("specialOffer", specialOffer);
+        model.addAttribute("pizza", repository.findById(id).get());
+
+        return "special-offers/create";
     }
 
 }
