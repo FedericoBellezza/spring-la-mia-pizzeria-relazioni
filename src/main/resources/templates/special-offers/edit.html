@@ -12,11 +12,11 @@
     <h1
       class="text-5xl text-slate-700 font-bold italic text-center pt-10 pb-10"
     >
-      Aggiungi un'offerta per la
-      <span class="underline">[[${specialOffer.getPizza().getName()}]]</span>
+      Modifica offerta:
+      <span class="underline">[[${specialOffer.getName()}]]</span>
     </h1>
     <form
-      th:action="@{/special-offers/create}"
+      th:action="@{/special-offers/edit/{offerId}(offerId = ${specialOffer.getId()})}"
       th:object="${specialOffer}"
       method="post"
       class="flex flex-col justify-center gap-3 w-2/3 mx-auto p-5"
@@ -52,7 +52,12 @@
         <!-- startDate container -->
         <div class="flex flex-col grow">
           <!-- startDate input -->
-          <label for="startDate">Data inizio</label>
+          <label for="startDate"
+            >Data inizio
+            <!-- <span class="italic text-slate-500"
+              >(attuale: [[${specialOffer.getStartDate()}]])</span
+            > -->
+          </label>
           <input
             class="border ps-2 py-1"
             type="date"
@@ -73,7 +78,12 @@
         <!-- endDate container -->
         <div class="flex flex-col grow">
           <!-- endDate input -->
-          <label for="endDate">Data fine</label>
+          <label for="endDate"
+            >Data fine
+            <!-- <span class="italic text-slate-500"
+              >(attuale: [[${specialOffer.getEndDate()}]])</span
+            > -->
+          </label>
           <input
             class="border ps-2 py-1"
             type="date"
@@ -95,13 +105,13 @@
 
       <div class="flex gap-3 py-3">
         <a
-          th:href="@{/pizzas/{id}/special-offers/create(id = ${specialOffer.getPizza().getId()})}"
-          th:text="Reset"
+          th:href="@{/pizzas/{pizzaId}(pizzaId = ${specialOffer.getPizza().getId()})}"
+          th:text="Annulla"
           class="bg-red-500 text-white px-2 py-1 grow hover:bg-red-600 cursor-pointer text-center"
         />
         <input
           type="submit"
-          value="Aggiungi offerta"
+          value="Aggiorna offerta"
           class="bg-blue-500 text-white px-2 py-1 grow-3 hover:bg-blue-600 cursor-pointer text-center"
         />
       </div>

@@ -4,6 +4,7 @@ import java.util.List;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.SpecialOffer;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.SpecialOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/pizzas")
@@ -22,6 +24,9 @@ public class PizzaController {
 
     @Autowired
     private PizzaRepository repository;
+
+    @Autowired
+    private SpecialOfferRepository specialOfferRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -82,13 +87,18 @@ public class PizzaController {
         }
     }
 
+    // pizza delete
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        repository.deleteById(id);
+        Pizza pizzaToDelete = repository.findById(id).get();
+        for (SpecialOffer specialOffer : pizzaToDelete.getSpecialOffers()) {
+            specialOfferRepository.delete(specialOffer);
+        }
+        repository.delete(pizzaToDelete);
         return "redirect:/pizzas";
     }
 
-    @GetMapping("/{id}/special-offers")
+    @GetMapping("/{id}/special-offers/create")
     public String special_offer(@PathVariable Integer id, Model model) {
         SpecialOffer specialOffer = new SpecialOffer();
         specialOffer.setPizza(repository.findById(id).get());

@@ -20,7 +20,6 @@ public class SpecialOffer {
     private Pizza pizza;
 
     @NotNull(message = "Inserisci una data valida")
-    @PastOrPresent(message = "La data non può essere futura")
     private LocalDate startDate;
 
     @NotNull(message = "Inserisci una data valida")
@@ -73,6 +72,10 @@ public class SpecialOffer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String toString() {
+        return "Nome: " + name;
     }
 
 }

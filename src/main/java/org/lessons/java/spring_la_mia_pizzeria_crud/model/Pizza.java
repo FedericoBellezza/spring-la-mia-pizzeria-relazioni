@@ -41,7 +41,7 @@ public class Pizza {
   private Integer price;
 
   @OneToMany(mappedBy = "pizza")
-  private List<SpecialOffer> special_offers;
+  private List<SpecialOffer> specialOffers;
 
   public Pizza() {
   }
@@ -84,6 +84,14 @@ public class Pizza {
 
   public void setPrice(Integer price) {
     this.price = price;
+  }
+
+  public List<SpecialOffer> getSpecialOffers() {
+    return this.specialOffers;
+  }
+
+  public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+    this.specialOffers = specialOffers;
   }
 
   public String toString() {
