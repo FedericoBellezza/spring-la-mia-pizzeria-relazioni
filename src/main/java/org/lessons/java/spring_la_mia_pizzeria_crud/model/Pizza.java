@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
@@ -29,7 +31,7 @@ public class Pizza {
   private String name;
 
   @Lob
-  @Length(min = 5, message = "Il nome deve avere almeno 5 caratteri e massimo 100", max = 100)
+  @Length(min = 5, message = "Il nome deve avere almeno 5 caratteri e massimo 100")
   @NotBlank(message = "Inserisci una descrizione valida")
   private String description;
 
@@ -44,7 +46,8 @@ public class Pizza {
   @OneToMany(mappedBy = "pizza")
   private List<SpecialOffer> specialOffers;
 
-  @ManyToMany(mappedBy = "pizzas")
+  @ManyToMany
+  @JoinTable(name = "ingredient_pizza", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
   private List<Ingredient> ingredients;
 
   public Integer getId() {

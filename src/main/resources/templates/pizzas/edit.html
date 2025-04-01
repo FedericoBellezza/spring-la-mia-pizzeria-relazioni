@@ -21,6 +21,19 @@
       method="post"
       class="flex flex-col justify-center gap-3 w-2/3 mx-auto p-5"
     >
+      <div class="text-xl flex-col flex">
+        <h2 class="text-2xl font-bold italic mb-3">Ingredienti:</h2>
+        <div th:each="ingredient : ${ingredients}">
+          <input
+            th:field="${pizza.ingredients}"
+            th:value="${ingredient.id}"
+            th:id="${ingredient.id}"
+            class="w-5 h-5 text-blue-600 accent-blue-600"
+            type="checkbox"
+          />
+          <label for="${ingredient.id}" th:text="${ingredient}"></label>
+        </div>
+      </div>
       <!-- nome e prezzo (input container) -->
       <div class="flex sm:gap-5 grow flex-wrap">
         <div class="flex flex-col grow">

@@ -31,7 +31,7 @@
       />
     </form>
 
-    <div class="flex flex-col items-center gap-10">
+    <div class="flex flex-col items-center gap-10 text-slate-700">
       <!-- titles -->
       <h1
         th:if="${pizza != null}"
@@ -47,13 +47,22 @@
         Pizza non trovata
       </h1>
       <!-- description -->
-      <p class="text-center text-xl">[[${pizza.description}]]</p>
+      <p class="text-center text-xl w-1/2">[[${pizza.description}]]</p>
       <!-- image -->
       <img
         class="rounded-2xl w-50/100 h-150 object-cover"
         th:src="@{${pizza.image}}"
         alt="immagine pizza"
       />
+      <div class="w-1/2">
+        <h2 class="text-3xl font-bold mb-3">Ingredienti:</h2>
+        <ul class="text-2xl">
+          <li
+            th:each="ingredient: ${pizza.ingredients}"
+            th:text=" | - ${ingredient} |"
+          ></li>
+        </ul>
+      </div>
       <hr class="w-1/2 border-2 border-slate-700" />
       <!-- special offers -->
       <div class="flex flex-col text-center w-1/2 mb-20">

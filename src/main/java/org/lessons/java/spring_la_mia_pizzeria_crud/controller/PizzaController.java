@@ -73,6 +73,8 @@ public class PizzaController {
     @GetMapping("/edit/{id}")
     public String edit(Model model, @PathVariable Integer id) {
         model.addAttribute("pizza", repository.findById(id).get());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
+
         return "pizzas/edit";
     }
 
@@ -103,7 +105,7 @@ public class PizzaController {
     }
 
     @GetMapping("/{id}/special-offers/create")
-    public String special_offer(@PathVariable Integer id, Model model) {
+    public String createOffer(@PathVariable Integer id, Model model) {
         SpecialOffer specialOffer = new SpecialOffer();
         specialOffer.setPizza(repository.findById(id).get());
         model.addAttribute("specialOffer", specialOffer);

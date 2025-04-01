@@ -41,7 +41,7 @@
     >
       <thead class="border text-2xl italic h-20 underline">
         <th>Nome</th>
-        <th>Descrizione</th>
+        <th>Ingredienti</th>
         <th class="px-10">Prezzo</th>
         <th class="px-10">Immagine</th>
       </thead>
@@ -52,7 +52,7 @@
           th:each="pizza : ${pizzas}"
         >
           <td class="font-bold">[[${pizza.name}]]</td>
-          <td class="italic text-xl">[[${pizza.description}]]</td>
+          <td class="italic text-xl" th:text="${pizza.ingredients}"></td>
           <td>€ [[${pizza.price}]].00</td>
           <td>
             <div class="flex justify-center">
